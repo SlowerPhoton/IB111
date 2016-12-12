@@ -1,0 +1,4 @@
+Prisoner's dilemma	RandomChoice	TitForTat	Adaptive	
+RandomChoice	4044	4032	5494	
+TitForTat	4012	5000	1264	
+Adaptive	802	1259	1168	
