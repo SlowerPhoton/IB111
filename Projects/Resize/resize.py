@@ -10,12 +10,14 @@ def naive_enlarge(bmp_file, output_file, h, w):
     inp.update_params()
     inp.writeData(output_file)
 
-new_data = []
+#new_data = []
+inp = None
 def naive_shrink(bmp_file, output_file, h, w):
+    global inp
     inp = BMP.BMP(bmp_file, 'r')
     inp.raw_to_data()
 
-    global new_data
+    #global new_data
     cols = []
     for c in range (inp.biWidth//w):
         #new_col = np.zeros((inp.biHeight, 3), np.uint8)
@@ -45,6 +47,7 @@ def naive_shrink(bmp_file, output_file, h, w):
     
     
     inp.data = new_data
+    inp.pad_data()
     inp.data_to_raw()
     inp.update_params()
     inp.writeData(output_file)
