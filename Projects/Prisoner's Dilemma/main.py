@@ -1,7 +1,3 @@
-import sys
-# the prvniProjekt dir contains prvniProjekt.py, game.py, strategies.py 
-sys.path.append('C:\\Users\\HP\\Desktop\\prvniProjekt')
-
 import output
 import strategies as s
 

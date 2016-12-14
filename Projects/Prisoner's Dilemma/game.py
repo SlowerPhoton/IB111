@@ -25,20 +25,12 @@ class Game:
     def __init__(self, playStyle1, playStyle2):
         self.player1 = Player(playStyle1)
         self.player2 = Player(playStyle2)
-        if playStyle1 == strategies.TitForTat and playStyle2 == strategies.Adaptive:
-            #self.test = True
-            pass
     
     def playWithFeedback(self, iterations):
         for i in range(0, iterations):   
             player1Answer = self.player1.answer(self.player2.getLastAnswer())
             player2Answer = self.player2.answer(self.player1.getLastAnswer())
 
-            if hasattr(self, 'test'):
-                #print ("Titans" + str(player1Answer), end = '\t')
-                #print ("Adaans" + str(player2Answer), end = '\n')
-                #print ("lastans: " + str(self.player1.getLastAnswer()), end = '\n')
-                pass
             # pay time
             self.__pay (player1Answer, player2Answer, self.player1, self.player2)
 

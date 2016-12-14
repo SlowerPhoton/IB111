@@ -40,18 +40,6 @@ def allStratsToTXT():
         f.write('\t')
     f.write('\n')
 
-    '''
-    for a in allStrats:
-        f.write(a.__name__)
-        f.write('\t')
-        for b in allStrats:
-            theGame = game.Game(strategies.TitForTat, strategies.Adaptive)
-            output = theGame.playWithFeedback(1000)
-            print(a.__name__ + "X" + b.__name__ + " " + str(output[0]) + "," + str(output[1]), end='\n')
-            f.write(str(output[1]))
-            f.write('\t')
-        f.write('\n')
-    '''
     for a in range(allStrats.__len__()):
         f.write(allStrats[a].__name__)
         f.write('\t')
