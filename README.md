@@ -108,6 +108,7 @@ Look for blocks with curvature higher than a certain threshold.
 <p> An idea to make a hash of a certain block to represent its shape proved to be completely useless and extremely slow.</p>
 
 <p> You can find a google presentation about this project <a href="https://docs.google.com/presentation/d/1MXV2jDWGclThWqRjNi5Ju1d4tXH6MN4FX6jf2mSPa1E/edit?usp=sharing"> here</a>. 
+</p>
 
 <b>Resize</b>
 
@@ -115,6 +116,9 @@ Look for blocks with curvature higher than a certain threshold.
 Method <i>naive_enlarge</i> expands an image by repetition. Twice as large image thus gets each column and row duplicated. </p>
 <p>
 Method <i>naive_shrink</i> shrinks an image by collapsing multiple rows/columns into one (with arithmetic mean). Other approaches seem to work worse. 
+</p>
+<p>
+The main "universal" method <i>resize</i> makes use of the mentioned functions, being able to transform an image to any resolution. However, there is a lot left for optimization.   
 </p>
 <p>
 <b>Show-off</b><br>
