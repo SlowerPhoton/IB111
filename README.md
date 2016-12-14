@@ -50,6 +50,7 @@ Attempt to guess the class of the opponent. Aside form the mentioned classes als
 </li>
 </ul>
 
+<p> <img src="http://i.imgur.com/BhW1IoJ.png" /> </p>
 <p> <a href="http://i.imgur.com/BhW1IoJ.png">Here are results of a battle of all strategies. </a></p>
 
 <b>Beat Analysis</b>
@@ -109,6 +110,23 @@ Look for blocks with curvature higher than a certain threshold.
 <p> You can find a google presentation about this project <a href="https://docs.google.com/presentation/d/1MXV2jDWGclThWqRjNi5Ju1d4tXH6MN4FX6jf2mSPa1E/edit?usp=sharing"> here</a>. 
 
 <b>Resize</b>
-
-
-
+<p>
+Method <i>naive_enlarge</i> expands an image by repetition. Twice as large image thus gets duplicated each column and row. </p>
+<p>
+Method <i>naive_shrink</i> shrinks an image by collapsing multiple rows/columns into one (with arithmetic mean). Other approaches seem to perform worse. 
+</p>
+<p>
+Show-off<br>
+<div>
+<img src="http://i.imgur.com/4NudilW.jpg" /><br>
+1920 x 1080
+</div>
+<div>
+<img src="http://i.imgur.com/xhwsJTS.png" /><br>
+540 x 540
+</div>
+<div>
+<img src="http://i.imgur.com/JCYWcnG.png" /><br>
+540 x 480
+</div>
+</p>
