@@ -4,6 +4,54 @@
 
 Simulation of gameplay of different strategies for this game. 
 
+Strategies used:
+<ul>
+<li> 
+class: <b>RandomChoice</b>
+<p>
+1/2 chance of cooperating, 1/2 of defecting
+<p>
+</li>
+<li> 
+class: <b>Cooperative</b>
+<p>
+Cooperate until the opponent defects, then defect a random amount of turns and attempt to cooperate again.
+<p>
+</li>
+<li> 
+class: <b>RealPlayer</b>
+<p>
+Enables the user to play.
+<p>
+</li>
+<li> 
+class: <b>AlwaysAccept</b>
+<p>
+Always cooperate.
+<p>
+</li>
+<li> 
+class: <b>AlwaysRefuse</b>
+<p>
+Always defect.
+<p>
+</li>
+<li> 
+class: <b>TitForTat</b>
+<p>
+Mimic opponent's last decision. (The first turn is completely random.)
+<p>
+</li>
+<li> 
+class: <b>Addaptive</b>
+<p>
+Attempt to guess the class of the opponent. Aside form the mentioned classes also recognizes Forgiving/Unforgiving Pavlov. Use weaknesses of the class against the opponent.
+<p>
+</li>
+</ul>
+
+<p> <a href="http://i.imgur.com/BhW1IoJ.png">Here are results of a battle of all strategies. </a></p>
+
 <b>Beat Analysis</b>
 
 In this project I focus on finding beats in wave files. 
@@ -58,7 +106,7 @@ Look for blocks with curvature higher than a certain threshold.
 
 <p> An idea to make a hash of a certain block to represent its shape proved to be completely useless and extremely slow.</p>
 
-<p> You can find a google presentation about this project <a href="https://docs.google.com/presentation/d/1MXV2jDWGclThWqRjNi5Ju1d4tXH6MN4FX6jf2mSPa1E/edit?usp=sharing"> here </a>. 
+<p> You can find a google presentation about this project <a href="https://docs.google.com/presentation/d/1MXV2jDWGclThWqRjNi5Ju1d4tXH6MN4FX6jf2mSPa1E/edit?usp=sharing"> here</a>. 
 
 <b>Resize</b>
 
