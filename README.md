@@ -58,6 +58,8 @@ Look for blocks with curvature higher than a certain threshold.
 
 <p> An idea to make a hash of a certain block to represent its shape proved to be completely useless and extremely slow.</p>
 
+<p> You can find a google presentation about this project <a href="https://docs.google.com/presentation/d/1MXV2jDWGclThWqRjNi5Ju1d4tXH6MN4FX6jf2mSPa1E/edit?usp=sharing"> here </a>. 
+
 <b>Resize</b>
 
 
