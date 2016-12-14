@@ -3,9 +3,8 @@ import numpy as np
 '''
     Obsolete function
     
-Find the maximum amplitude between samples in a given time interval
-
-interval is in seconds
+    Find the maximum amplitude between samples in a given time interval
+    (interval is in seconds)
 '''
 def findMaxAmplInInterval(wavFile = "snow.wav", interval = 0.5):
     f = open(wavFile, 'rb')

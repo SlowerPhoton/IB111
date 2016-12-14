@@ -1,9 +1,0 @@
-import sys
-sys.path.append("C:/Users/HP/Dektop/WAV reader")
-
-song = open('snow.wav')
-
-for i in range(0,100):
-    print (f.read(1))
-    if i != 0 and i % 8 == 0:
-        print(end='\n')
