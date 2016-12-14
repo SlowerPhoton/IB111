@@ -110,13 +110,14 @@ Look for blocks with curvature higher than a certain threshold.
 <p> You can find a google presentation about this project <a href="https://docs.google.com/presentation/d/1MXV2jDWGclThWqRjNi5Ju1d4tXH6MN4FX6jf2mSPa1E/edit?usp=sharing"> here</a>. 
 
 <b>Resize</b>
+
 <p>
-Method <i>naive_enlarge</i> expands an image by repetition. Twice as large image thus gets duplicated each column and row. </p>
+Method <i>naive_enlarge</i> expands an image by repetition. Twice as large image thus gets each column and row duplicated. </p>
 <p>
-Method <i>naive_shrink</i> shrinks an image by collapsing multiple rows/columns into one (with arithmetic mean). Other approaches seem to perform worse. 
+Method <i>naive_shrink</i> shrinks an image by collapsing multiple rows/columns into one (with arithmetic mean). Other approaches seem to work worse. 
 </p>
 <p>
-Show-off<br>
+<b>Show-off</b><br>
 <div>
 <img src="http://i.imgur.com/4NudilW.jpg" /><br>
 1920 x 1080
