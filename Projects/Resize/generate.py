@@ -18,10 +18,10 @@ def color_stripes():
 
     draw.data_to_raw()
     draw.update_params()
-    draw.writeData()
+    draw.write_data()
 
 def blue_line():
-    draw = BMP.BMP('draw.bmp', 'w')
+    draw = BMP.BMP('blue_line.bmp', 'w')
     draw.default()
     draw.raw_to_data(20, 20)
 
@@ -36,4 +36,19 @@ def blue_line():
 
     draw.data_to_raw()
     draw.update_params()
-    draw.writeData()
+    draw.write_data()
+
+def red_green():
+    draw = BMP.BMP('red_green.bmp', 'w')
+    draw.default()
+    draw.raw_to_data(20, 40)
+
+    for r in range (20):
+        for c in range (20):
+              draw.putColor(r,c,color.Color.red.value)
+        for c in range (20, 40):
+              draw.putColor(r,c,color.Color.green.value)
+              
+    draw.data_to_raw()
+    draw.update_params()
+    draw.write_data()

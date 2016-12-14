@@ -17,7 +17,7 @@ class BMP:
             self.dataRaw = b''
         else :
             raise ValueError('Unknown mode of opening')
-
+    
     def inform(self):
         print ("size of the file is " + str(self.bfSize) + ' bytes')
         print ('image width is ' + str(self.biWidth))
@@ -71,20 +71,31 @@ class BMP:
         # this if-else statement is temporary
         if self.bfOffBits - 14 - self.biSize < 0:
             print('negative')
-            self.dataRaw = inp.read()
+            self.raw_data = inp.read()
             return
         else:
             self.colorTable = inp.read(self.bfOffBits - 14 - self.biSize)
         
         # data
-        self.dataRaw = inp.read(self.biWidth*abs(self.biHeight)*self.biBitCount//8)
-
+        #self.raw_data = inp.read(self.biWidth*abs(self.biHeight)*self.biBitCount//8)
+        self.raw_data = inp.read()
+        
         inp.close()
 
-    def writeData(self, output_file = None):
+    # creates a bmp file and fills it with this instance of BMP
+    # if output_file is not specified, uses self.name
+    # WARNING: uses raw_data rather than data
+    # if pad is set to True also pads raw_data correctly (by calling
+    # pad_raw_data) and updates bfSize accordingly
+    # NOTE: writes colorTable (if not empty) as well
+    def write_data(self, output_file = None, pad=True):
         if output_file == None:
             output_file = self.name
         out = open(output_file, 'wb')
+
+        if pad:
+            self.pad_raw_data()
+            self.bfSize = 54 + self.colorTable.__len__() + self.raw_data.__len__()
 
         # file header 14 bytes
         out.write(bytes(self.bfType, 'ASCII'))
@@ -111,7 +122,7 @@ class BMP:
             out.write(self.colorTable)
         
         # data
-        out.write(self.dataRaw)
+        out.write(self.raw_data)
 
         out.close()
 
@@ -119,12 +130,6 @@ class BMP:
         self.data[x][y] = color
     
     def putPixel (self, x, y, color_slot, value):
-        '''
-        if y > self.biHeight-1:
-            to_add = y - self.biHeight
-            for i in range(to_add):
-                self.data = np.insert(self.data, -1, [ [0,0,0] for j in range(self.biWidth)], axis=1)
-        '''
         if color_slot == 'r':
             color_slot = 2
         elif color_slot == 'g':
@@ -136,6 +141,7 @@ class BMP:
         self.data[x][y][color_slot] = value
 
     # converts the raw data into a ndarray [row][column][pixel]
+    # ignores (skips) padding
     def raw_to_data (self, maxHeight = None, maxWidth = None):
         if maxHeight == None or maxHeight < self.biHeight:
             maxHeight = abs(self.biHeight)
@@ -147,19 +153,26 @@ class BMP:
         # np.frombuffer(self.dataRaw, dtype='uint8', count = 1, offset = r*p+pix).tolist()
         #self.data = np.array([[ [int.from_bytes(self.dataRaw[p*r+pix], byteorder = 'little', signed=False) for pix in range(self.biBitCount//8-1, -1, -1) ] for p in range(self.biWidth) ] for r in range(self.biHeight)], np.uint8)
 
-        pixels = np.frombuffer(self.dataRaw, dtype='uint8')
+        pixels = np.frombuffer(self.raw_data, dtype='uint8')
+        padding = (4 - (self.biWidth*self.biBitCount//8 % 4)) % 4
         
         to_add = maxWidth-self.biWidth    
         points = []
         col = 0
-        for p in range(0, self.biWidth*self.biHeight*self.biBitCount//8, 3):
-            #points.append(np.flipud(pixels[p:p+3]))
+        #self.biWidth*self.biHeight*self.biBitCount//8
+        #for p in range(0, self.raw_data.__len__(), 3):
+        p = 0
+        while p <= self.raw_data.__len__()-3:
             points.append(pixels[p:p+3])
             col += 1
-            if col % (self.biWidth) == 0:
+            if col % self.biWidth == 0:
+                p += padding
                 col = 0
                 for i in range(to_add):
                     points.append(np.array([0,0,0], np.uint8))
+            p += 3
+        #print (points)
+        #print (points.__len__())
         rows = []
         for r in range(0, maxWidth*self.biHeight, maxWidth):
             rows.append(points[r:r+maxWidth])
@@ -171,24 +184,30 @@ class BMP:
         self.data = np.array(rows, np.uint8)
 
     def data_to_raw (self):
-        ''', height = None, width = None'''
-        '''
-        if height == None:
-            height = abs(self.biHeight)
-        if width == None:
-            width = self.biWidth
-        '''
-        self.dataRaw = self.data.tostring()
+        self.raw_data = self.data.tostring()
 
+    # deprecated, use pad_raw_data instead
     def pad_data(self):
         if (not hasattr(self, 'data')):
-            raise ValueError('There is no \'data\'')
-        #to_pad = self.data.shape[1] % 4
-        #self.data = np.append(self.data, np.zeros((self.data.shape[0],to_pad,self.data.shape[2]), np.uint8), axis=1)
+            raise AttributeError('There is no \'data\'')      
         to_pad = self.data.shape[1] % 4
         self.data = np.append(self.data, np.zeros((self.data.shape[0],to_pad,self.data.shape[2]), np.uint8), axis=1)
+
+    # pad each row so it ends on a 4 byte boundary
+    # doesn't update any stats
+    def pad_raw_data(self):
+        if (not hasattr(self, 'raw_data')):
+            raise AttributeError('There is no \'raw_data\'') 
+        h = self.biHeight
+        w = self.biWidth*self.biBitCount//8
+        raw = np.frombuffer(self.raw_data, np.uint8)
+        padded = raw.reshape(h, w)
+        to_pad = (4 - (w % 4)) % 4
+        padded = np.append(padded, np.zeros((h,to_pad), np.uint8), axis=1)
+        self.raw_data = padded.astype(np.uint8).tostring()
         
-    # updates biHeight, biWidth and bfSize according to the data array
+    
+    # updates biHeight, biWidth and bfSize according to data.shape
     def update_params(self):
         self.height = self.data.shape[0]
         self.width = self.data.shape[1]
@@ -198,7 +217,7 @@ class BMP:
         self.bfSize = 54 + self.height*self.width*self.bytecount
 
     # sets all necessary parameters to a predefined state
-    # WARNING: deletes all previous data of the object
+    # WARNING: rewrites all File and Image header data of the instance
     def default(self):
         self.bfType = 'BM'
         self.bfSize = 54   # alter
@@ -216,3 +235,5 @@ class BMP:
         self.biYPelsPerMeter = 0
         self.biClrUsed = 0
         self.biClrImportant = 0
+        self.colorTable = b''
+        self.raw_data = b''

@@ -1,8 +1,10 @@
 import numpy as np
 import BMP
-import math
+import math # gcd
 
-
+# Enlarges an image
+# multiplies its height by h (by repeating rows h times)
+# multiplies its width by w (by repeating columns w times)
 def naive_enlarge(bmp_file, output_file, h, w):
     inp = BMP.BMP(bmp_file, 'r')
     inp.raw_to_data()
@@ -10,8 +12,13 @@ def naive_enlarge(bmp_file, output_file, h, w):
     inp.data = np.repeat(inp.data, w, 1)
     inp.data_to_raw()
     inp.update_params()
-    inp.writeData(output_file)
+    inp.write_data(output_file)
 
+# Shrinks an image
+# "divides" its original height by h
+# "divides" its original width by w
+# each block of h rows is combined into one row (arithmetic mean)
+# the same for columns
 def naive_shrink(bmp_file, output_file, h, w):
     inp = BMP.BMP(bmp_file, 'r')
     inp.raw_to_data()
@@ -40,8 +47,12 @@ def naive_shrink(bmp_file, output_file, h, w):
     #inp.pad_data()
     inp.data_to_raw()
     inp.update_params()
-    inp.writeData(output_file)
+    inp.write_data(output_file)
 
+# Resize bmp_file image and save it as output_file
+# new_height new height of the image (in pixels)
+# new_width new width of the image (in pixels)
+# NOTE: combines naive_enlarge and naive_shrink to achieve this
 def resize(bmp_file, output_file, new_height, new_width):
     inp = BMP.BMP(bmp_file, 'r')
     h = inp.biHeight
@@ -51,6 +62,7 @@ def resize(bmp_file, output_file, new_height, new_width):
     naive_enlarge(bmp_file, output_file, new_height//height_gcd, new_width//width_gcd)
     naive_shrink(output_file, output_file, inp.biHeight//height_gcd, inp.biWidth//width_gcd)
 
+# deprecated 
 def weigthed_mean_shrink(bmp_file, output_file, h, w):
     inp = BMP.BMP(bmp_file, 'r')
     inp.raw_to_data()
