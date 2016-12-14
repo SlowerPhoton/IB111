@@ -1,6 +1,6 @@
 # IB111
 
-<b>Prisonner's Dilemma</b>
+<b>Prisoner's Dilemma</b>
 
 Simulation of gameplay of different strategies for this game. 
 
@@ -43,7 +43,7 @@ Mimic opponent's last decision. (The first turn is completely random.)
 <p>
 </li>
 <li> 
-class: <b>Addaptive</b>
+class: <b>Adaptive</b>
 <p>
 Attempt to guess the class of the opponent. Aside form the mentioned classes also recognizes Forgiving/Unforgiving Pavlov. Use weaknesses of the class against the opponent.
 <p>
