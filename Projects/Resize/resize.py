@@ -1,5 +1,7 @@
 import numpy as np
 import BMP
+import math
+
 
 def naive_enlarge(bmp_file, output_file, h, w):
     inp = BMP.BMP(bmp_file, 'r')
@@ -10,31 +12,19 @@ def naive_enlarge(bmp_file, output_file, h, w):
     inp.update_params()
     inp.writeData(output_file)
 
-#new_data = []
-inp = None
 def naive_shrink(bmp_file, output_file, h, w):
-    global inp
     inp = BMP.BMP(bmp_file, 'r')
     inp.raw_to_data()
 
-    #global new_data
     cols = []
     for c in range (inp.biWidth//w):
-        #new_col = np.zeros((inp.biHeight, 3), np.uint8)
-        #new_col.reshape((inp.biHeight, 3))
         new_col = 0
         for i in range (w):
-            #print(inp.data[:,c*w+i].astype('uint16'))
             new_col += inp.data[:,c*w+i].astype('uint16')
-            #print(new_col.astype('uint8'))
         new_col //= w
-        #print(new_col.astype('uint8'))
         cols.append(new_col.astype('uint8'))
-        #print(cols)
     new_data = np.column_stack(cols)
-    #print (new_data)
     new_data = new_data.reshape(inp.biHeight, inp.biWidth//w, 3)
-    #print (new_data)
 
     rows = []
     for r in range (inp.biHeight//h):
@@ -47,12 +37,19 @@ def naive_shrink(bmp_file, output_file, h, w):
     
     
     inp.data = new_data
-    inp.pad_data()
+    #inp.pad_data()
     inp.data_to_raw()
     inp.update_params()
     inp.writeData(output_file)
 
-import math
+def resize(bmp_file, output_file, new_height, new_width):
+    inp = BMP.BMP(bmp_file, 'r')
+    h = inp.biHeight
+    w = inp.biWidth
+    height_gcd = math.gcd(inp.biHeight, new_height)
+    width_gcd = math.gcd(inp.biWidth, new_width)
+    naive_enlarge(bmp_file, output_file, new_height//height_gcd, new_width//width_gcd)
+    naive_shrink(output_file, output_file, inp.biHeight//height_gcd, inp.biWidth//width_gcd)
 
 def weigthed_mean_shrink(bmp_file, output_file, h, w):
     inp = BMP.BMP(bmp_file, 'r')

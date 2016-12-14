@@ -183,9 +183,11 @@ class BMP:
     def pad_data(self):
         if (not hasattr(self, 'data')):
             raise ValueError('There is no \'data\'')
+        #to_pad = self.data.shape[1] % 4
+        #self.data = np.append(self.data, np.zeros((self.data.shape[0],to_pad,self.data.shape[2]), np.uint8), axis=1)
         to_pad = self.data.shape[1] % 4
         self.data = np.append(self.data, np.zeros((self.data.shape[0],to_pad,self.data.shape[2]), np.uint8), axis=1)
-
+        
     # updates biHeight, biWidth and bfSize according to the data array
     def update_params(self):
         self.height = self.data.shape[0]
