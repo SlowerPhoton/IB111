@@ -19,8 +19,12 @@ class RandomChoice:
 # If the 2nd player betrays, refuse random amount of turns
 # Then attempt to cooperate again
 class Cooperative:
-    __betray = False
-    __attemptToCooperate = False
+    #__betray = False
+    #__attemptToCooperate = False
+
+    def __init__(self):
+        self.__betray = False
+        self.__attemptToCooperate = False
 
     def answer(self, lastOpponentAnswer):
         if lastOpponentAnswer == -1:
@@ -76,11 +80,17 @@ class TitForTat:
         return lastOpponentAnswer
 
 class Adaptive:
-    testTitForTatCounter = 0
-    currentTurn = 0
-    myStrategy = [0, 0, 1, 1, 1]
-    opponentStrategy = []
+    #testTitForTatCounter = 0
+    #currentTurn = 0
+    #myStrategy = [0, 0, 1, 1, 1]
+    #opponentStrategy = []
 
+    def __init__(self):
+        self.testTitForTatCounter = 0
+        self.currentTurn = 0
+        self.myStrategy = [0, 0, 1, 1, 1]
+        self.opponentStrategy = []   
+    
     def answer(self, lastOpponentAnswer):
         if self.currentTurn > 0:
             self.opponentStrategy.append(lastOpponentAnswer)
@@ -298,7 +308,7 @@ class Adaptive:
         elif hasattr(self, 'pavlovSuperForgiving'):
             self.__pavlovSuperForgiving()
         else:
-            print ("error: no pattern chosen", end="\n")
+            print ("error: no pattern chosen", end="\n") # should not happen
 
 
 

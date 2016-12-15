@@ -29,8 +29,8 @@ Let play all strategies against each other (one game of 1000 turns)
 Save the output in 'prissoners dilemma.txt' as a table for Excel
 '''
 def allStratsToTXT():
-    #allStrats = [strategies.RandomChoice, strategies.Cooperative, strategies.AlwaysAccept, strategies.TitForTat, strategies.Adaptive]
-    allStrats = [strategies.Cooperative, strategies.TitForTat, strategies.Adaptive]
+    allStrats = [strategies.RandomChoice, strategies.Cooperative, strategies.AlwaysAccept, strategies.TitForTat, strategies.Adaptive]
+    #allStrats = [strategies.Cooperative, strategies.TitForTat, strategies.Adaptive]
     f = open('prisoners dilemma.txt', 'w')
 
     # label columns

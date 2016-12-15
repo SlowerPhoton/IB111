@@ -1,4 +1,6 @@
-Prisoner's dilemma	RandomChoice	TitForTat	Adaptive	
-RandomChoice	4044	4032	5494	
-TitForTat	4012	5000	1264	
-Adaptive	802	1259	1168	
+Prisoner's dilemma	RandomChoice	Cooperative	AlwaysAccept	TitForTat	Adaptive	
+RandomChoice	4086	3827	5518	3936	5481	
+Cooperative	4418	5000	4231	5000	5006	
+AlwaysAccept	483	673	1000	999	998	
+TitForTat	3984	4995	1009	5000	4992	
+Adaptive	544	4992	1018	4992	1008	
