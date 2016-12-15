@@ -145,7 +145,7 @@ def difference(threshold, wf):
 '''
 def amplitude(threshold, wf):
     data = []
-    for sampleIndex in range(0, 20000000*wf.blockAlign, wf.blockAlign//wf.numChannels):
+    for sampleIndex in range(0, 500000*wf.blockAlign, wf.blockAlign//wf.numChannels):
         sample = wf.dataRaw[sampleIndex:sampleIndex+wf.blockAlign//wf.numChannels]
         sample = int.from_bytes(sample, byteorder='little', signed=True)
         if abs(sample) > threshold:
